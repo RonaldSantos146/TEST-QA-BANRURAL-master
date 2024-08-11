@@ -56,8 +56,14 @@
   function checkGuess() {
 
     let userGuess = guessField.value;
-    if (guessField=Number.isInteger){
-      lastResult.textContent='no es un numero entero';
+   
+    //validacion de la entrada de numeros enteros 
+    if(!Number.isInteger(userGuess) || userGuess < 1 || userGuess> 100){
+      alert("Por favor, ingresa un número entero válido entre 1 y 100.");
+                guessField.value = '';
+                guessField.focus();
+                return;
+
     }
     if(guessCount === 1) {
       guesses.textContent = 'Número aleatorio anterior: ';
