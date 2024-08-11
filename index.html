@@ -41,11 +41,17 @@
 </body>
 
 <script>
+
+  /*let randomNumber = Math.random() * 10 generaba unicamente numeros del 0 a 10 y debe de generar
+  numeros aleatorios entre 1 y 100, se escribio de manera correcta 
+  */
   let randomNumber = Math.floor(Math.random() * 100)+1;
 
+  // El Numero de intentos solo permitia 5 intentos y se corrigio 
   const ATTEMPS = 10;
   const guesses = document.querySelector('.guesses');
   const lastResult = document.querySelector('.lastResult');
+    // la referencia estaba incorreca ('lowOrHi'); la manera correcta seria ('.lowOrHi')
   const lowOrHi = document.querySelector('.lowOrHi');
   const guessSubmit = document.querySelector('.guessSubmit');
   const guessField = document.querySelector('.guessField');
@@ -55,10 +61,10 @@
 
   function checkGuess() {
 
-    let userGuess = guessField.value;
+    let userGuess = Number(guessField.value);
    
     //validacion de la entrada de numeros enteros 
-    if(!Number.isInteger(userGuess) || userGuess < 1 || userGuess> 100){
+   if(!Number.isInteger(userGuess) || userGuess < 1 || userGuess> 100){
       alert("Por favor, ingresa un número entero válido entre 1 y 100.");
                 guessField.value = '';
                 guessField.focus();
@@ -69,15 +75,18 @@
       guesses.textContent = 'Número aleatorio anterior: ';
     }
     guesses.textContent += userGuess + ' ';
-
+    /* if(userGuess === randomNumber) user guess es una cadena u=y randomnumber 
+    es un numero por lo que se corrigio en la condicion para que se convirtio
+     UserGuess a numero para la comparacion*/
     if(Number(userGuess) === randomNumber) {
-      lastResult.textContent = '!!!Pérdistes!!!';
-      lastResult.style.backgroundColor = 'red';
+      lastResult.textContent = '¡Felicitaciones! ¡Adivinaste el número!';
+      lastResult.style.backgroundColor = 'green';
       lowOrHi.textContent = '';
       setGameOver();
+      // se corrigio en esta condicion ya que aca se validan la cantidad de intentos 
     } else if(guessCount === ATTEMPS) {
-      lastResult.textContent = 'Felicitaciones! adivinaste el número!';
-      lastResult.style.backgroundColor = 'green';
+      lastResult.textContent = '!!!Perdiste!!!';
+      lastResult.style.backgroundColor = 'red';
       setGameOver();
     } else {
       lastResult.textContent = 'Incorrecto! ';
@@ -93,6 +102,7 @@
     guessField.value = '';
     guessField.focus();
   }
+    // se corrrigio el evento addeventListener ya que estaba escrito de manera incorrecto 
   guessSubmit.addEventListener('click', checkGuess);
 
   function setGameOver() {
@@ -101,9 +111,10 @@
 	  resetButton = document.createElement('button');
 	  resetButton.textContent = 'Comienza un nuevo juego';
 	  document.body.appendChild(resetButton);
-
+  // se corrrigio el evento addeventListener ya que estaba escrito de manera incorrecto 
+    resetButton.addEventListener('click', resetGame);
   }
-  resetButton.addEventListener('click', resetGame);
+
   function resetGame() {
 	  guessCount = 1;
 
@@ -119,7 +130,7 @@
 	  guessField.focus();
 
 	  lastResult.style.backgroundColor = 'white';
-
+    // restGame debe de usar la misma logica que al inicio para generar los numeros aleatorios 
 	  randomNumber = Math.floor(Math.random()*100) + 1;
   }
 </script>
